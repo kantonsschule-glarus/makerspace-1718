@@ -8,15 +8,15 @@ export class RobotCommunicationService {
 
   constructor(public http: Http) {;}
 
-  setSpeedLeftWheel(value: number):void{
+  setLeftWheelVelocity(value: number):void{
       this.sendWheelVelocity(value,"set-left-wheel-velocity");
   }
 
-    setSpeedRightWheel(value: number):void{
+    setRightWheelVelocity(value: number):void{
         this.sendWheelVelocity(value,"set-right-wheel-velocity");
     }
 
-    sendWheelVelocity(value: number, serviceName: string){
+    private sendWheelVelocity(value: number, serviceName: string){
         console.log("calling service :"+serviceName+" with value=",value);
         this.http.get(this.robotUrl + "/"+serviceName+"?value="+value).subscribe(
             (data) => {
