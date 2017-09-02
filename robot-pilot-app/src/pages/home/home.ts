@@ -29,13 +29,13 @@ export class HomePage {
 
   getRoationY(e){
     this.roationY = e.srcEvent.offsetY
-    /*if(this.roationY > 250){
+    if(this.roationY > 250){
       this.roationY = 250
     }
 
     else if(this.roationY < 0){
       this.roationY = 0
-    }*/
+    }
     if(e.isFinal){
       this.roationY = 125
     }
