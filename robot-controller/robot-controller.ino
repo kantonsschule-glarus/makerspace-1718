@@ -2,13 +2,21 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
+#include <Wire.h>
+#include <Adafruit_MotorShield.h>
+#include "utility/Adafruit_MS_PWMServoDriver.h"
+
 
 const char* ssid = "makerspace";
 const char* password = "makerspace";
 
 ESP8266WebServer server(80);
+Adafruit_MotorShield AFMS = Adafruit_MotorShield(); 
 
 const int led = 13;
+
+Adafruit_DCMotor *leftMotor = AFMS.getMotor(1);
+Adafruit_DCMotor *rightMotor = AFMS.getMotor(2);
 
 void handleRoot() {
   digitalWrite(led, 1);
@@ -37,9 +45,7 @@ void send400(){
   server.send(400, "text/plain", "Please provide the value [-1..1]. Example: http//robot.ing.gl/set-left-wheel-velocity?value=0.65");
 }
 
-void getValue(){
 
-}
 void setup(void){
   pinMode(led, OUTPUT);
   digitalWrite(led, 0);
@@ -76,6 +82,16 @@ void setup(void){
     }
     Serial.print("set-left-wheel-velocity to ");
     Serial.println(value);
+
+    leftMotor->setSpeed(map(value,-1,1,0,255)); 
+    if(value > 0){
+      leftMotor->run(FORWARD);
+    }else if(value < 0){
+      leftMotor->run(BACKWARD);
+    }else{
+      leftMotor->run(RELEASE);
+    }
+    
     server.send(200, "text/plain", "");
   });
   server.on("/set-right-wheel-velocity", [](){
@@ -90,6 +106,15 @@ void setup(void){
     }
     Serial.print("set-right-wheel-velocity to ");
     Serial.println(value);
+    
+    rightMotor->setSpeed(map(value,-1,1,0,255)); 
+    if(value > 0){
+      rightMotor->run(FORWARD);
+    }else if(value < 0){
+      rightMotor->run(BACKWARD);
+    }else{
+      rightMotor->run(RELEASE);
+    }
     server.send(200, "text/plain", "");
   });
 
@@ -97,6 +122,12 @@ void setup(void){
 
   server.begin();
   Serial.println("HTTP server started");
+
+  AFMS.begin();
+  leftMotor->setSpeed(100); 
+  leftMotor->run(FORWARD);
+  rightMotor->setSpeed(100); 
+  rightMotor->run(FORWARD);
 }
 
 void loop(void){
