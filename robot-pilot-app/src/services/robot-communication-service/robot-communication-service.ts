@@ -15,4 +15,11 @@ export class RobotCommunicationService {
     console.log('Hello RobotCommunicationService');
   }
 
+  setSpeedLeftWheel(value: number):void{
+      console.log("speed value for left wheel:",value);
+  }
+
+    setSpeedRightWheel(value: number):void{
+        console.log("speed value for right wheel:",value);
+    }
 }
