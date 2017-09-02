@@ -3,8 +3,8 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
-const char* ssid = "........";
-const char* password = "........";
+const char* ssid = "makerspace";
+const char* password = "makerspace";
 
 ESP8266WebServer server(80);
 
@@ -12,13 +12,13 @@ const int led = 13;
 
 void handleRoot() {
   digitalWrite(led, 1);
-  server.send(200, "text/plain", "hello from esp8266!");
+  server.send(200, "text/plain", "Hello. I am the Makerspace Robot.");
   digitalWrite(led, 0);
 }
 
 void handleNotFound(){
   digitalWrite(led, 1);
-  String message = "File Not Found\n\n";
+  String message = "Service Not Found\n\n";
   message += "URI: ";
   message += server.uri();
   message += "\nMethod: ";
@@ -33,6 +33,13 @@ void handleNotFound(){
   digitalWrite(led, 0);
 }
 
+void send400(){
+  server.send(400, "text/plain", "Please provide the value [-1..1]. Example: http//robot.ing.gl/set-left-wheel-velocity?value=0.65");
+}
+
+void getValue(){
+
+}
 void setup(void){
   pinMode(led, OUTPUT);
   digitalWrite(led, 0);
@@ -57,8 +64,33 @@ void setup(void){
 
   server.on("/", handleRoot);
 
-  server.on("/inline", [](){
-    server.send(200, "text/plain", "this works as well");
+  server.on("/set-left-wheel-velocity", [](){
+    if (server.arg("value")==""){     //Parameter not found
+        return;
+    }
+    String valueAsString = server.arg("value");
+    float value = valueAsString.toFloat();
+    if(value > 1 || value < -1){
+      send400();
+      return;
+    }
+    Serial.print("set-left-wheel-velocity to ");
+    Serial.println(value);
+    server.send(200, "text/plain", "");
+  });
+  server.on("/set-right-wheel-velocity", [](){
+    if (server.arg("value")== ""){     //Parameter not found
+        return;
+    }
+    String valueAsString = server.arg("value");
+    float value = valueAsString.toFloat();
+    if(value > 1 || value < -1){
+      send400();
+      return;
+    }
+    Serial.print("set-right-wheel-velocity to ");
+    Serial.println(value);
+    server.send(200, "text/plain", "");
   });
 
   server.onNotFound(handleNotFound);

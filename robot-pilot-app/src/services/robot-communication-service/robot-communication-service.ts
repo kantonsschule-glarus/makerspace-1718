@@ -2,24 +2,30 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the RobotCommunicationServiceProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on services and Angular DI.
-*/
 @Injectable()
 export class RobotCommunicationService {
+    robotUrl: string = "http://robot.ing.gl";
 
-  constructor(public http: Http) {
-    console.log('Hello RobotCommunicationService');
-  }
+  constructor(public http: Http) {;}
 
   setSpeedLeftWheel(value: number):void{
-      console.log("speed value for left wheel:",value);
+      this.sendWheelVelocity(value,"set-left-wheel-velocity");
   }
 
     setSpeedRightWheel(value: number):void{
-        console.log("speed value for right wheel:",value);
+        this.sendWheelVelocity(value,"set-right-wheel-velocity");
+    }
+
+    sendWheelVelocity(value: number, serviceName: string){
+        console.log("calling service :"+serviceName+" with value=",value);
+        this.http.get(this.robotUrl + "/"+serviceName+"?value="+value).subscribe(
+            (data) => {
+                console.log(data);
+            },
+            (err) => {
+                console.error(err);
+            },
+            () => {}
+        );
     }
 }
