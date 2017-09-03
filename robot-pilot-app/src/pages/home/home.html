@@ -1,13 +1,20 @@
 <ion-content padding>
+  <ion-fab right top>
+    <button ion-fab color="light"><ion-icon name="game-controller-a"></ion-icon></button>
+    <ion-fab-list side="down">
+      <button ion-fab (click)="goToMecanum()" ><ion-icon name="car"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
   <ion-card>
     <ion-card-content>
       <svg width="580" height="250" xmlns="http://www.w3.org/2000/svg">
         <g>
           <title>Control Layer</title>
-          <rect  id="background_line" height="250" width="50" y="0" x="80" stroke-width="0" stroke="#000" fill="#C0C0C0"/>
-          <ellipse  fill="#C0C0C0" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="375" cy="125" id="background_circle" rx="125" ry="125"/>
-          <ellipse (pan)="getRoationY($event)" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="105" [attr.cy]="roationY" id="rotation" rx="40" ry="40"/>
-          <ellipse (pan)="getDirectionXY($event)" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" [attr.cx]="directionX" [attr.cy]="directionY" id="direction" rx="40" ry="40"/>
+          <rect  id="background_left_throttle" height="250" width="50" y="0" x="80" stroke-width="0" stroke="#000" fill="#C0C0C0"/>
+          <rect  id="background_right_throttle" height="250" width="50" y="0" x="350" stroke-width="0" stroke="#000" fill="#C0C0C0"/>
+          <ellipse (pan)="getLeftThrottleValue($event)" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="105" [attr.cy]="leftThrottleValue" id="dot_left_throttle" rx="40" ry="40"/>
+          <ellipse (pan)="getRightThrottleValue($event)" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="375" [attr.cy]="rightThrottleValue" id="dot_right_throttle" rx="40" ry="40"/>
         </g>
       </svg>
     </ion-card-content>

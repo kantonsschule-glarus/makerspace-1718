@@ -1,0 +1,22 @@
+<ion-content padding>
+  <ion-fab right top>
+    <button ion-fab color="light"><ion-icon name="game-controller-a"></ion-icon></button>
+    <ion-fab-list side="down">
+      <button ion-fab (click)="goToHome()" ><ion-icon name="hammer"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-card>
+    <ion-card-content>
+      <svg width="580" height="250" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <title>Control Layer</title>
+          <rect  id="background_line" height="250" width="50" y="0" x="80" stroke-width="0" stroke="#000" fill="#C0C0C0"/>
+          <ellipse  fill="#C0C0C0" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="375" cy="125" id="background_circle" rx="125" ry="125"/>
+          <ellipse (pan)="getRoationY($event)" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="105" [attr.cy]="roationY" id="rotation" rx="40" ry="40"/>
+          <ellipse (pan)="getDirectionXY($event)" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" [attr.cx]="directionX" [attr.cy]="directionY" id="direction" rx="40" ry="40"/>
+        </g>
+      </svg>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

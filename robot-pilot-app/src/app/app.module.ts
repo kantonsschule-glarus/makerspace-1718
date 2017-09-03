@@ -8,11 +8,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { RobotCommunicationService } from '../services/robot-communication-service/robot-communication-service';
+import {MecanumPage} from "../pages/mecanum/mecanum";
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    MecanumPage
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,8 @@ import { RobotCommunicationService } from '../services/robot-communication-servi
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    MecanumPage
   ],
   providers: [
     StatusBar,

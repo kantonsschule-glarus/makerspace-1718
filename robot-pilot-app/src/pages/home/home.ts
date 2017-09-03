@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {RobotCommunicationService} from "../../services/robot-communication-service/robot-communication-service";
+import {MecanumPage} from "../mecanum/mecanum";
 
 @Component({
   selector: 'page-home',
@@ -8,12 +9,11 @@ import {RobotCommunicationService} from "../../services/robot-communication-serv
 })
 export class HomePage implements OnInit {
 
-  public startDirectionX: number = 375;
-  public startDirectionY: number = 200;
-  public startRotationY: number = 200;
-  public directionX: number = 375;
-  public directionY: number = 125;
-  public roationY: number = 125;
+  public leftThrottleValue: number = 125;
+  public rightThrottleValue: number = 125;
+  public leftThrottleSpeed: number = 0;
+  public rightThrottleSpeed: number = 0;
+  public data: number[] = [0,0];
 
   constructor(public robotCommunicationService: RobotCommunicationService, public navCtrl: NavController) {;}
 
@@ -22,26 +22,44 @@ export class HomePage implements OnInit {
 //    this.robotCommunicationService.setRightWheelVelocity(-0.2);
   }
 
-  getDirectionXY(e){
-    this.directionX = e.srcEvent.offsetX
-    this.directionY = e.srcEvent.offsetY
+  getLeftThrottleValue(e){
+    this.leftThrottleValue = e.srcEvent.offsetY
+
+    if(this.leftThrottleValue > 250){
+      this.leftThrottleValue = 250
+    }
+    else if(this.leftThrottleValue < 0){
+      this.leftThrottleValue = 0
+    }
+
     if(e.isFinal){
-      this.directionX = 375
-      this.directionY = 125
+      this.leftThrottleValue = 125
     }
   }
 
-  getRoationY(e){
-    this.roationY = e.srcEvent.offsetY
-    if(this.roationY > 250){
-      this.roationY = 250
+  getRightThrottleValue(e){
+    this.rightThrottleValue = e.srcEvent.offsetY
+
+    if(this.rightThrottleValue > 250){
+      this.rightThrottleValue = 250
+    }
+    else if(this.rightThrottleValue < 0){
+      this.rightThrottleValue = 0
     }
 
-    else if(this.roationY < 0){
-      this.roationY = 0
-    }
     if(e.isFinal){
-      this.roationY = 125
+      this.rightThrottleValue = 125
     }
+  }
+
+  getData(){
+    this.leftThrottleSpeed = (((250 - this.leftThrottleValue)/125) - 1)
+    this.rightThrottleSpeed = (((250 - this.rightThrottleValue)/125) - 1)
+    this.data = [this.leftThrottleSpeed,this.rightThrottleSpeed]
+    return this.data
+  }
+
+  goToMecanum(){
+    this.navCtrl.push(MecanumPage)
   }
 }
