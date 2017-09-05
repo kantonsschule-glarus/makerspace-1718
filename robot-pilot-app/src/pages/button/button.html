@@ -1,0 +1,29 @@
+<ion-content padding>
+  <ion-fab right top>
+    <button ion-fab color="light"><ion-icon name="game-controller-a"></ion-icon></button>
+    <ion-fab-list side="down">
+      <button ion-fab (click)="goToMecanum()" ><ion-icon name="car"></ion-icon></button>
+      <button ion-fab (click)="goToHome()" ><ion-icon name="hammer"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-card>
+    <ion-card-content>
+      <svg width="300" height="350" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <title>Control Layer</title>
+          <ellipse (click)="forward()" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="150" cy="40" id="forward" rx="40" ry="40"/>
+          <ellipse (click)="turnLeft()" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="40" cy="150" id="left" rx="40" ry="40"/>
+          <ellipse (click)="stop()" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="150" cy="150" id="stop" rx="40" ry="40"/>
+          <ellipse (click)="turnRight()" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="260" cy="150" id="right" rx="40" ry="40"/>
+          <ellipse (click)="backward()" fill="#E10019" stroke="#000" stroke-width="0" stroke-opacity="null" fill-opacity="null" cx="150" cy="260" id="backwards" rx="40" ry="40"/>
+        </g>
+      </svg>
+      <ion-list-header>
+        Speed
+      </ion-list-header>
+      <ion-range min="0" max="255" pin="true" [(ngModel)]="speed" color="#E10019">
+      </ion-range>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

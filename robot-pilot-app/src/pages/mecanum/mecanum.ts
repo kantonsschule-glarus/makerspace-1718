@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import {HomePage} from "../home/home";
+import {ButtonPage} from "../button/button";
 
 @IonicPage()
 @Component({
@@ -66,5 +67,9 @@ export class MecanumPage {
 
   goToHome(){
     this.navCtrl.push(HomePage)
+  }
+
+  goToButton(){
+    this.navCtrl.push(ButtonPage)
   }
 }

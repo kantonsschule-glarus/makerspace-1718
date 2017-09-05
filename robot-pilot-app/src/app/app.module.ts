@@ -9,12 +9,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { RobotCommunicationService } from '../services/robot-communication-service/robot-communication-service';
 import {MecanumPage} from "../pages/mecanum/mecanum";
+import {ButtonPage} from "../pages/button/button";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    MecanumPage
+    MecanumPage,
+    ButtonPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import {MecanumPage} from "../pages/mecanum/mecanum";
   entryComponents: [
     MyApp,
     HomePage,
-    MecanumPage
+    MecanumPage,
+    ButtonPage
   ],
   providers: [
     StatusBar,

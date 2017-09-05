@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {RobotCommunicationService} from "../../services/robot-communication-service/robot-communication-service";
 import {MecanumPage} from "../mecanum/mecanum";
+import {ButtonPage} from "../button/button";
 
 @Component({
   selector: 'page-home',
@@ -61,5 +62,9 @@ export class HomePage implements OnInit {
 
   goToMecanum(){
     this.navCtrl.push(MecanumPage)
+  }
+
+  goToButton(){
+    this.navCtrl.push(ButtonPage)
   }
 }

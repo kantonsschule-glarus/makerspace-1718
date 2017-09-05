@@ -2,5 +2,7 @@
   "name": "robot-pilot-app",
   "app_id": "ch.kanti-glarus.makerspace.1718.robotpilot",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
