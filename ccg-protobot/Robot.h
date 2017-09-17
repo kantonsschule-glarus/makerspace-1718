@@ -8,12 +8,14 @@
  */
 class Robot {
   public:
-    Robot();
+    Robot(Drive &drive);
+    void setUp();
+    
     void forward();
     void backward();
     void stop();
   private:
-    Drive drive;
+    Drive &drive;
 };
 
 #endif
