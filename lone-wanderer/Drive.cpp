@@ -8,11 +8,14 @@ Drive::Drive(Adafruit_MotorShield &theAFMS)
 {
   leftMotor = AFMS.getMotor(1);  
   rightMotor = AFMS.getMotor(2);
-  
+}
+
+void Drive::startDrive(){
   AFMS.begin();
   
   leftMotor->run(RELEASE);
   rightMotor->run(RELEASE);
+  
 }
 
 void Drive::forward(){

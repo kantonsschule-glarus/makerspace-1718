@@ -17,6 +17,7 @@ Robot robot(drive);
 
 void setup() {
   Serial.begin(9600);
+  robot.startRobot();
 }
 
 

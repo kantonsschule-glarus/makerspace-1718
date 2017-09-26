@@ -9,7 +9,8 @@
 class Drive {
   public:
     Drive(Adafruit_MotorShield &AFMS);
-    
+
+    void startDrive();
     void forward();
     void backward();
     void left();

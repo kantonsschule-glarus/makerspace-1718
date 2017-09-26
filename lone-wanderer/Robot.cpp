@@ -5,6 +5,10 @@ Robot::Robot(Drive &theDrive)
 : drive(theDrive)
 {;}
 
+void Robot::startRobot(){
+  drive.startDrive();
+}
+
 void Robot::wakeUp(){ 
   Serial.println("Robot waking up..."); 
   digitalWrite(awakeIndicatorPin, HIGH);
