@@ -8,12 +8,18 @@
  */
 class Robot {
   public:
-    Robot();
+    Robot(Drive &drive);
     void wakeUp();
     /**
      * Checks the sensors and save sensor-data
      */
     void check();
+
+    void forward();
+    void backward();
+    void left();
+    void right();
+    void stop();
     /**
      * Behave upon sensor data
      */
@@ -21,7 +27,7 @@ class Robot {
     
   private:
     int awakeIndicatorPin;
-    Drive drive;
+    Drive &drive;
 };
 
 #endif

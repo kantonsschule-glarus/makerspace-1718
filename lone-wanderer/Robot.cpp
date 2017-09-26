@@ -1,13 +1,9 @@
 #include "Arduino.h"
 #include "Robot.h"
-#include "Drive.h"
 
-Robot::Robot()
-: awakeIndicatorPin(13),
-  drive()
-{
-  pinMode(awakeIndicatorPin, OUTPUT);
-}
+Robot::Robot(Drive &theDrive)
+: drive(theDrive)
+{;}
 
 void Robot::wakeUp(){ 
   Serial.println("Robot waking up..."); 
@@ -17,6 +13,31 @@ void Robot::wakeUp(){
   drive.backward();
   delay(25);
   Serial.println("Robot awake"); 
+}
+
+void Robot::forward(){
+  Serial.println("Robot forward");
+  drive.forward();
+}
+
+void Robot::backward(){
+  Serial.println("Robot backward");
+  drive.backward();
+}
+
+void Robot::left(){
+  Serial.println("Robot left");
+  drive.left();
+}
+
+void Robot::right(){
+  Serial.println("Robot right");
+  drive.right();
+}
+
+void Robot::stop(){
+  Serial.println("Robot stop");
+  drive.stop();
 }
 
 void Robot::check(){
