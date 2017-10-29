@@ -24,8 +24,8 @@ void Drive::forward(){
   leftMotor->run(FORWARD);
   rightMotor->run(FORWARD);
   
-  leftMotor->setSpeed(150);
-  rightMotor->setSpeed(150);
+  leftMotor->setSpeed(125);
+  rightMotor->setSpeed(125);
 }
 
 void Drive::backward(){
@@ -34,8 +34,8 @@ void Drive::backward(){
   leftMotor->run(BACKWARD);
   rightMotor->run(BACKWARD);
   
-  leftMotor->setSpeed(150);
-  rightMotor->setSpeed(150);
+  leftMotor->setSpeed(125);
+  rightMotor->setSpeed(125);
 }
 
 void Drive::left(){
@@ -44,8 +44,8 @@ void Drive::left(){
   leftMotor->run(BACKWARD);
   rightMotor->run(FORWARD);
   
-  leftMotor->setSpeed(150);
-  rightMotor->setSpeed(150);
+  leftMotor->setSpeed(125);
+  rightMotor->setSpeed(125);
 }
 
 void Drive::right(){
@@ -54,8 +54,8 @@ void Drive::right(){
   leftMotor->run(FORWARD);
   rightMotor->run(BACKWARD);
 
-  leftMotor->setSpeed(150);
-  rightMotor->setSpeed(150);
+  leftMotor->setSpeed(125);
+  rightMotor->setSpeed(125);
 }
 
 void Drive::stop(){
@@ -64,6 +64,6 @@ void Drive::stop(){
   leftMotor->run(RELEASE);
   rightMotor->run(RELEASE);
 
-  leftMotor->setSpeed(150);
-  rightMotor->setSpeed(150);
+  leftMotor->setSpeed(125);
+  rightMotor->setSpeed(125);
 }
