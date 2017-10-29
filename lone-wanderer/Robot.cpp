@@ -2,7 +2,13 @@
 #include "Robot.h"
 
 Robot::Robot(Drive &theDrive)
-: drive(theDrive)
+: drive(theDrive),
+  fl(3),
+  fr(5),
+  rl(9),
+  rr(10),
+  bfl(4),
+  bfr(2)
 {;}
 
 void Robot::setUp(){
@@ -12,10 +18,20 @@ void Robot::setUp(){
 void Robot::wakeUp(){ 
   Serial.println("Robot wakeup ..."); 
   digitalWrite(awakeIndicatorPin, HIGH);
+
+  fl.on();
+  fr.on();
+  rl.on();
+  rr.on();
+  
+  drive.spinLeft();
+  delay(2000);
+  drive.stop();
+  delay(200);
+  drive.spinRight();
+  delay(2000);
   drive.forward();
-  delay(25);
-  drive.backward();
-  delay(25);
+  drive.stop();
   Serial.println("Robot wakeup done"); 
 }
 

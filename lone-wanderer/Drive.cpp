@@ -60,6 +60,15 @@ void Drive::right(){
   applyMotorVelocities();
 }
 
+void Drive::spinLeft(){
+  leftMotor->run(BACKWARD);
+  rightMotor->run(FORWARD);  
+}
+void Drive::spinRight(){
+  leftMotor->run(FORWARD);
+  rightMotor->run(BACKWARD);  
+}
+
 void Drive::stop(){
   Serial.println("Drive stop");
   leftMotor->run(RELEASE);

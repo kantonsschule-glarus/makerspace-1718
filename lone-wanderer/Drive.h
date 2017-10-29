@@ -17,6 +17,8 @@ class Drive {
     void backward();
     void left();
     void right();
+    void spinLeft();
+    void spinRight();
     void stop();
     void setVelocity(int value); // [0..255]
     

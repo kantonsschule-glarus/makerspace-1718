@@ -1,7 +1,9 @@
-#include "Drive.h"
-
 #ifndef Robot_h
 #define Robot_h
+
+#include "Drive.h"
+#include "Light.h"
+#include "Bumper.h"
 
 /*
  * This is the interface of the robot
@@ -29,6 +31,12 @@ class Robot {
   private:
     int awakeIndicatorPin;
     Drive &drive;
+    Light fl;
+    Light fr;
+    Light rl;
+    Light rr;
+    Bumper bfl;
+    Bumper bfr;
 };
 
 #endif
