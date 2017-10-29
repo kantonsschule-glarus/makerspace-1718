@@ -8,7 +8,7 @@ Drive::Drive(float wheelDistance,
              Adafruit_MotorShield &theAFMS)
 : 
 velocity(100.0),
-maxVelocity(155),
+maxVelocity(125),
 velocityLeftMotor(0),
 velocityRightMotor(0),
 omega(0.0),

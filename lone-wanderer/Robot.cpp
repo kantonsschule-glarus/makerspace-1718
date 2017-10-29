@@ -7,8 +7,8 @@ Robot::Robot(Drive &theDrive)
   fr(5),
   rl(9),
   rr(10),
-  bfl(4),
-  bfr(2)
+  bfl(2),
+  bfr(4)
 {;}
 
 void Robot::setUp(){
@@ -62,6 +62,16 @@ void Robot::stop(){
 
 void Robot::check(){
   Serial.println("Robot check sensors and save data");
+  bfr.isPressed();
+  if(/*bfl.isPressed() || */ bfr.isPressed()){
+    drive.stop();
+    drive.left();
+    drive.backward();
+    delay(1000);
+    drive.spinLeft();
+    delay(600);
+    drive.forward();
+  }
 }
 
 void Robot::behave(){

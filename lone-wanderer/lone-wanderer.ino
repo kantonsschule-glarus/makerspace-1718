@@ -21,18 +21,22 @@ Robot robot(drive);
 void setup() {
   Serial.begin(9600);
   robot.setUp();
+  
   robot.wakeUp();
+  robot.forward();
 }
 
 
 void loop() {
-  robot.forward();
+  robot.check();
+  delay(25);
+  /*robot.forward();
   delay(1000);
   robot.left();
   delay(8000);
   robot.forward();
   delay(2000);
   robot.right();
-  delay(8000);
+  delay(8000);*/
 }
 
