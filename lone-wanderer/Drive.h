@@ -19,6 +19,8 @@ class Drive {
     void right();
     void spinLeft();
     void spinRight();
+    void flatLeft();
+    void flatRight();
     void stop();
     void setVelocity(int value); // [0..255]
     

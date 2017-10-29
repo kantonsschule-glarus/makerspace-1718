@@ -69,6 +69,18 @@ void Drive::spinRight(){
   rightMotor->run(BACKWARD);  
 }
 
+void Drive::flatLeft(){
+  Serial.println("Drive flat left");
+  omega = -75.0;
+  applyMotorVelocities();  
+}
+
+void Drive::flatRight(){
+  Serial.println("Drive flat right");
+  omega = 75.0;
+  applyMotorVelocities();  
+}
+
 void Drive::stop(){
   Serial.println("Drive stop");
   leftMotor->run(RELEASE);

@@ -4,6 +4,7 @@
 #include "Drive.h"
 #include "Light.h"
 #include "Bumper.h"
+#include "Distance.h"
 
 /*
  * This is the interface of the robot
@@ -28,7 +29,7 @@ class Robot {
      */
     void behave();
     
-  private:
+  private:    
     int awakeIndicatorPin;
     Drive &drive;
     Light fl;
@@ -37,6 +38,10 @@ class Robot {
     Light rr;
     Bumper bfl;
     Bumper bfr;
+    Distance distance;
+    boolean isBumped();
+    void threePointTurnLeft();
+    void threePointTurnRight();
 };
 
 #endif

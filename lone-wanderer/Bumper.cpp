@@ -9,10 +9,10 @@ Bumper::Bumper(int pin)
 
 boolean Bumper::isPressed(){
   boolean result = digitalRead(_pin) == HIGH;
-  Serial.print("Bumper on pin ");
+  /*Serial.print("Bumper on pin ");
   Serial.print(_pin);
   Serial.print(" is ");
-  Serial.println(result);
+  Serial.println(result);*/
   return result;
 }
 

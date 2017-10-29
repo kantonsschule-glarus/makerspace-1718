@@ -8,7 +8,8 @@ Robot::Robot(Drive &theDrive)
   rl(9),
   rr(10),
   bfl(2),
-  bfr(4)
+  bfr(4),
+  distance(A0)
 {;}
 
 void Robot::setUp(){
@@ -61,9 +62,40 @@ void Robot::stop(){
 }
 
 void Robot::check(){
-  Serial.println("Robot check sensors and save data");
-  bfr.isPressed();
-  if(/*bfl.isPressed() || */ bfr.isPressed()){
+  if(isBumped()){
+    threePointTurnLeft();
+    return;
+  }
+
+  int d = distance.check();
+  switch(d){
+    case 3:
+      drive.stop();
+      delay(1000);
+      threePointTurnRight();
+      break;
+    case 2:
+      drive.left();
+      break;
+    case 1:
+      drive.flatLeft();
+      break;
+    case 0:
+    default:
+      drive.forward();
+      ;
+  }
+}
+
+void Robot::behave(){
+  Serial.println("Robot read data and behave normal");
+}
+
+boolean Robot::isBumped(){
+  return bfr.isPressed();
+}
+
+void Robot::threePointTurnLeft(){
     drive.stop();
     drive.left();
     drive.backward();
@@ -71,10 +103,15 @@ void Robot::check(){
     drive.spinLeft();
     delay(600);
     drive.forward();
-  }
 }
 
-void Robot::behave(){
-  Serial.println("Robot read data and behave normal");
+void Robot::threePointTurnRight(){
+    drive.stop();
+    drive.right();
+    drive.backward();
+    delay(500);
+    drive.spinRight();
+    delay(400);
+    drive.forward();
 }
 
