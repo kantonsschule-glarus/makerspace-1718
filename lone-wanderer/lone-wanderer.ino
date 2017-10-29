@@ -23,20 +23,11 @@ void setup() {
   robot.setUp();
   
   robot.wakeUp();
-  robot.forward();
 }
 
 
 void loop() {
   robot.check();
   delay(25);
-  /*robot.forward();
-  delay(1000);
-  robot.left();
-  delay(8000);
-  robot.forward();
-  delay(2000);
-  robot.right();
-  delay(8000);*/
 }
 

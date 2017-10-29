@@ -3,8 +3,8 @@
 
 #include <Adafruit_MotorShield.h>
 /**
- * The drive coordinates the two motors.
- * 
+ * The differential drive coordinates the two motors.
+ * @autor nils
  */
 class Drive {
   public:
