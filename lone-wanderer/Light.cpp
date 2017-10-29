@@ -8,10 +8,12 @@ Light::Light(int pin)
 }
 
 void Light::on(){
+  Serial.println("Light on");
   digitalWrite(_pin, HIGH);
 }
 
 void Light::off(){
+  Serial.println("Light off");
   digitalWrite(_pin, LOW);
 }
 

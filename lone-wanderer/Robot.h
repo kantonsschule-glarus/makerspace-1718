@@ -15,7 +15,7 @@ class Robot {
      */
     void check();
 
-    void startRobot();
+    void setUp();
     void forward();
     void backward();
     void left();

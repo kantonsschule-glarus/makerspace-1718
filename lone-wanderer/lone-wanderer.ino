@@ -8,7 +8,10 @@
 
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 
-Drive drive(AFMS);
+const float wheelDistanceInCm = 15.0; // cm
+const float wheelRadiusInCm = 3.0; // cm
+
+Drive drive(wheelDistanceInCm, wheelRadiusInCm, AFMS);
 Robot robot(drive);
 Light fl(3);
 Light fr(5);
@@ -25,7 +28,8 @@ Bumper bfr(2);
 
 void setup() {
   Serial.begin(9600);
-  robot.startRobot();
+  robot.setUp();
+  
   fl.on();
   fr.on();
   rl.on();
@@ -42,31 +46,12 @@ void setup() {
 
 void loop() {
   robot.forward();
-
-  if(bfl.isPressed()){
-    Serial.println("BFL is pressed");
-  }
-  if(bfr.isPressed()){
-    Serial.println("BFR is pressed");
-  }  delay(2000);
-  robot.stop();
-  delay(1000);
-  robot.backward();
-
-  if(bfl.isPressed()){
-    Serial.println("BFL is pressed");
-  }
-  if(bfr.isPressed()){
-    Serial.println("BFR is pressed");
-  }
-  delay(2000);
-  robot.stop();
   delay(1000);
   robot.left();
-  delay(4000);
+  delay(8000);
+  robot.forward();
+  delay(2000);
   robot.right();
-  delay(4000);
-  robot.stop();
-  delay(1000);
+  delay(8000);
 }
 

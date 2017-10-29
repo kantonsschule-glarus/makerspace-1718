@@ -5,18 +5,18 @@ Robot::Robot(Drive &theDrive)
 : drive(theDrive)
 {;}
 
-void Robot::startRobot(){
-  drive.startDrive();
+void Robot::setUp(){
+  drive.setUp();
 }
 
 void Robot::wakeUp(){ 
-  Serial.println("Robot waking up..."); 
+  Serial.println("Robot wakeup ..."); 
   digitalWrite(awakeIndicatorPin, HIGH);
   drive.forward();
   delay(25);
   drive.backward();
   delay(25);
-  Serial.println("Robot awake"); 
+  Serial.println("Robot wakeup done"); 
 }
 
 void Robot::forward(){
