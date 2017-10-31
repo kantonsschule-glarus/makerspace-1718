@@ -4,8 +4,9 @@
 class Distance {
   public:
     Distance(int pin);
+    enum ZONE { clear, attention, danger};
 
-    int check();
+    ZONE check();
     
   private:
     int _pin;

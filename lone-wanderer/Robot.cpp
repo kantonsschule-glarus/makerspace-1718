@@ -67,23 +67,19 @@ void Robot::check(){
     return;
   }
 
-  int d = distance.check();
+  Distance::ZONE d = distance.check();
   switch(d){
-    case 3:
+    case Distance::danger:
       drive.stop();
       delay(1000);
       threePointTurnRight();
       break;
-    case 2:
+    case Distance::attention:
       drive.left();
       break;
-    case 1:
-      drive.flatLeft();
-      break;
-    case 0:
+    case Distance::clear:
     default:
       drive.forward();
-      ;
   }
 }
 

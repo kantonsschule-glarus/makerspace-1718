@@ -5,7 +5,7 @@ Distance::Distance(int pin)
 : _pin(pin)
 {;}
 
-int Distance::check(){
+Distance::ZONE Distance::check(){
    int value = analogRead(_pin);
    if(value <= 90){
       return 0; 
