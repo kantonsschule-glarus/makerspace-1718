@@ -15,6 +15,7 @@ class FindClearPath : Behavior {
   private:
     Sonar &_sonar;
     Servo &_sonarServo;
+    float asRadiant(float degrees);
 };
 
 #endif

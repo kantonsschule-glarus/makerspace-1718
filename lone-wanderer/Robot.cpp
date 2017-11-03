@@ -1,6 +1,8 @@
 #include "Arduino.h"
 #include "Robot.h"
 
+#include "PIDController.h"
+
 Robot::Robot(Drive &theDrive)
 : drive(theDrive),
   fl(3),
@@ -34,8 +36,6 @@ void Robot::wakeUp(){
   rl.on();
   rr.on();
 
-  goToGoal.behave();
-  
   drive.spinLeft();
   delay(2000);
   drive.stop();
@@ -45,6 +45,50 @@ void Robot::wakeUp(){
   drive.forward();
   drive.stop();
   Serial.println("Robot wakeup done"); 
+}
+
+void Robot::explore()
+{
+    float epsilon = 0.1;
+    float nominalAngle = findClearPath.calculateAngle();
+    float actualAngle = 0.0;
+    PIDController pid(); 
+    drive.stop();
+         float dcm = sonar.getDistanceInCm();
+      if(dcm > 50){
+        drive.forward();
+        drive.stop();
+        return;
+      }
+    for(int i=0; i<10; i++){
+      float error = actualAngle - nominalAngle;
+      Serial.print("Robot explore correcting angle by ");
+      Serial.print(error);
+      Serial.println("rad");
+      
+      //drive.setAngle(pid.calculateAngle(error));
+      if(abs(error) <= epsilon){
+        return;
+      }
+      drive.setAngle(0);
+      drive.setVelocity(75);
+      if(error > 0){
+        drive.spinRight();  
+      }
+      if(error < 0){
+        drive.spinLeft();  
+      }
+      delay(250);
+      drive.stop();
+      dcm = sonar.getDistanceInCm();
+      if(dcm > 50){
+        drive.forward();
+        drive.stop();
+        return;
+      }
+      nominalAngle = findClearPath.calculateAngle();
+    }
+    drive.stop();
 }
 
 void Robot::forward(){
@@ -88,6 +132,9 @@ void Robot::act()
     case Disk::DANGER:
     {
       threePointTurnRight();
+      drive.stop();
+      explore();
+      forward();
     }    
     case Disk::ATTENTION:
     case Disk::CLEAR:

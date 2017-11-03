@@ -23,7 +23,8 @@ void setup() {
   robot.setUp();
   
   robot.wakeUp();
-  //robot.forward();
+  robot.explore();
+  robot.forward();
 }
 
 

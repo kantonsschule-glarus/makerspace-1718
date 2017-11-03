@@ -21,8 +21,7 @@ class GoToGoal : Behavior {
     float actualAngle;
     PIDController pidController;
     Sonar &sonar;
-    Servo &sonarServo;
-    float asRadiant(float degrees);
+    Servo &sonarServo;    
 };
 
 #endif

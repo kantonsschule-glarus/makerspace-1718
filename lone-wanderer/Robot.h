@@ -21,6 +21,7 @@ class Robot {
   public:
     Robot(Drive &drive);
     void wakeUp();
+    void explore();
     /**
      * tick is called in time-descreete intervals like every 25milliseconds.
      * The robot's responsibility is to take this tick to plan and act.
