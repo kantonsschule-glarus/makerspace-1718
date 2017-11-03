@@ -35,7 +35,7 @@ void Drive::setUp(){
 
 void Drive::forward(){
   Serial.println("Drive forward");
-  omega = 0.0;
+  omega = asRadiant(0.0);
   applyMotorVelocities();
   leftMotor->run(FORWARD);
   rightMotor->run(FORWARD);
@@ -43,20 +43,20 @@ void Drive::forward(){
 
 void Drive::backward(){
   Serial.println("Drive backward");
-  omega = 0.0;
+  omega = asRadiant(0.0);
   leftMotor->run(BACKWARD);
   rightMotor->run(BACKWARD);
 }
 
 void Drive::left(){
   Serial.println("Drive left");
-  omega = -150.0;
+  omega = asRadiant(-150.0);
   applyMotorVelocities();
 }
 
 void Drive::right(){
   Serial.println("Drive right");
-  omega = 150.0;
+  omega = asRadiant(150.0);
   applyMotorVelocities();
 }
 
@@ -71,13 +71,13 @@ void Drive::spinRight(){
 
 void Drive::flatLeft(){
   Serial.println("Drive flat left");
-  omega = -75.0;
+  omega = asRadiant(-75.0);
   applyMotorVelocities();  
 }
 
 void Drive::flatRight(){
   Serial.println("Drive flat right");
-  omega = 75.0;
+  omega = asRadiant(75.0);
   applyMotorVelocities();  
 }
 
@@ -87,6 +87,13 @@ void Drive::stop(){
   rightMotor->run(RELEASE);
 }
 
+void Drive::setAngle(float o){
+  Serial.print("Drive angle=");
+  Serial.print(o);
+  Serial.println("rad");
+  omega = o;
+  applyMotorVelocities();
+}
 void Drive::setVelocity(int value){
   velocity = value;
   applyMotorVelocities();
@@ -101,15 +108,17 @@ void Drive::applyMotorVelocities(){
 }
 
 void Drive::calculateVelocityRightMotor(){
-  velocityRightMotor = (2.0 * velocity + asRadiant(omega) * L)/(2.0 * R);
+  velocityRightMotor = (2.0 * velocity + omega * L)/(2.0 * R);
   Serial.print("Drive velocityRightMotor=");
-  Serial.println(velocityRightMotor);
+  Serial.print(velocityRightMotor);
+  Serial.println("m/s");
 }
 
 void Drive::calculateVelocityLeftMotor(){
-  velocityLeftMotor = (2.0 * velocity - asRadiant(omega) * L)/(2.0 * R);
+  velocityLeftMotor = (2.0 * velocity - omega * L)/(2.0 * R);
   Serial.print("Drive velocityLeftMotor=");
-  Serial.println(velocityLeftMotor);
+  Serial.print(velocityLeftMotor);
+  Serial.println("m/s");
 }
 
 float Drive::asRadiant(float degrees){
@@ -118,5 +127,5 @@ float Drive::asRadiant(float degrees){
 
 int Drive::mapVelocityToPwm(float v){
   int vv = (int)v;
-  return map(v, 0, 42, 0, maxVelocity);
+  return map(v, 0, 34, 0, maxVelocity);
 }

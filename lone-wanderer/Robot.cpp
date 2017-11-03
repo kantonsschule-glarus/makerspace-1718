@@ -9,7 +9,16 @@ Robot::Robot(Drive &theDrive)
   rr(10),
   bfl(2),
   bfr(4),
-  distance(A0)
+  distance(A0),
+  sonar(),
+  sonarServo(),
+  avoidObstacle(distance),
+  findClearPath(sonar, sonarServo),
+  goToGoal(sonar, sonarServo),
+  blender(),
+  disk(),
+  currentDiskLevel(Disk::CLEAR),
+  currentDistanceFromObstacleInCm(100.0)
 {;}
 
 void Robot::setUp(){
@@ -24,6 +33,8 @@ void Robot::wakeUp(){
   fr.on();
   rl.on();
   rr.on();
+
+  goToGoal.behave();
   
   drive.spinLeft();
   delay(2000);
@@ -61,28 +72,34 @@ void Robot::stop(){
   drive.stop();
 }
 
-void Robot::check(){
-  if(isBumped()){
-    threePointTurnLeft();
-    return;
-  }
-
-  Distance::ZONE d = distance.check();
-  switch(d){
-    case Distance::danger:
-      drive.stop();
-      delay(1000);
-      threePointTurnRight();
-      break;
-    case Distance::attention:
-      drive.left();
-      break;
-    case Distance::clear:
-    default:
-      drive.forward();
-  }
+void Robot::tick()
+{
+  plan();
+  act();  
+}
+void Robot::plan(){
+  currentDistanceFromObstacleInCm = distance.getDistanceInCm();
+  currentDiskLevel = disk.getLevel(currentDistanceFromObstacleInCm);
 }
 
+void Robot::act()
+{
+  switch(currentDiskLevel){
+    case Disk::DANGER:
+    {
+      threePointTurnRight();
+    }    
+    case Disk::ATTENTION:
+    case Disk::CLEAR:
+    default:
+      float angleToGo = blender.blend(
+                            currentDistanceFromObstacleInCm, 
+                            goToGoal.calculateAngle(), 
+                            avoidObstacle.calculateAngle());
+  
+      drive.setAngle(angleToGo);
+  }
+}
 void Robot::behave(){
   Serial.println("Robot read data and behave normal");
 }

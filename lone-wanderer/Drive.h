@@ -22,6 +22,7 @@ class Drive {
     void flatLeft();
     void flatRight();
     void stop();
+    void setAngle(float o);
     void setVelocity(int value); // [0..255]
     
   private:
