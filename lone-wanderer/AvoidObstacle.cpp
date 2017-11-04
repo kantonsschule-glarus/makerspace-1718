@@ -8,38 +8,26 @@ AvoidObstacle::AvoidObstacle(Distance &distance)
 AvoidObstacle::~AvoidObstacle(){;}
 
 float AvoidObstacle::calculateAngle(){
-  int currentDistance = _distance.getDistanceInCm();
+  float currentDistance = _distance.getDistanceInMeter();
   Serial.print("AvoidObstacle currentDistance=");
   Serial.print(currentDistance);
-  Serial.println("cm");
-  if(currentDistance >= 90){
+  Serial.println("m");
+  if(currentDistance >= 0.9){
     return 0.0;
   }
-  if(currentDistance >= 80){
+  if(currentDistance >= 0.8){
     return 0.3 * -PI;
   }
-  if(currentDistance >= 70){
+  if(currentDistance >= 0.7){
     return  0.6 * -PI;
   }
-  if(currentDistance >= 50){
+  if(currentDistance >= 0.5){
     return 0.833333 * -PI;
   }
-  if(currentDistance > -100){
+  if(currentDistance > -0.1){
     return -PI;
   }
   return 0.0;
-  
-  /*
-  switch(currentZone){
-      case Distance::danger:
-        return PI;
-      case Distance::attention:
-        return PI/2.0;
-      case Distance::clear:
-      default:
-        return 0.0;
-    }
-    */
 }
 
 

@@ -9,7 +9,7 @@ Sonar::Sonar()
   pinMode(echoPin, INPUT);
 }
 
-float Sonar::getDistanceInCm()
+float Sonar::getDistanceInMeter()
 {
     // Code from here: https://randomnerdtutorials.com/complete-guide-for-ultrasonic-sensor-hc-sr04/
     // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
@@ -28,6 +28,6 @@ float Sonar::getDistanceInCm()
     
     // convert the time into a distance
     float cm = (duration/2.0) / 29.1;
-    return cm;
+    return 0.01 * cm; // convert from cm to m
 }
 

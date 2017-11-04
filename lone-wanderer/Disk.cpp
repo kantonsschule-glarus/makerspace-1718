@@ -2,12 +2,12 @@
 
 Disk::Disk(){}
 
-Disk::LEVEL Disk::getLevel(float distanceInCm)
+Disk::LEVEL Disk::getLevel(float distanceInMeter)
 {
-  if(distanceInCm < 10){
+  if(distanceInMeter < 0.1){
     return Disk::DANGER;
   }
-  if(distanceInCm < 50){
+  if(distanceInMeter < 0.5){
     return Disk::ATTENTION;
   }
   return Disk::CLEAR;

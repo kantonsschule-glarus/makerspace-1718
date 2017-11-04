@@ -35,15 +35,15 @@ void Drive::setUp(){
 
 void Drive::forward(){
   Serial.println("Drive forward");
-  omega = asRadiant(0.0);
-  applyMotorVelocities();
+  //omega = asRadiant(0.0);
+  //applyMotorVelocities();
   leftMotor->run(FORWARD);
   rightMotor->run(FORWARD);
 }
 
 void Drive::backward(){
   Serial.println("Drive backward");
-  omega = asRadiant(0.0);
+  //omega = asRadiant(0.0);
   leftMotor->run(BACKWARD);
   rightMotor->run(BACKWARD);
 }

@@ -6,7 +6,7 @@ class Disk {
     Disk();
     enum LEVEL { CLEAR, ATTENTION, DANGER };
         
-    LEVEL getLevel(float distanceInCm);
+    LEVEL getLevel(float distanceInMeter);
 
 };
 

@@ -5,10 +5,12 @@ Distance::Distance(int pin)
 : _pin(pin)
 {;}
 
-int Distance::getDistanceInCm(){
+float Distance::getDistanceInMeter(){
    int value = analogRead(_pin);
-   //Serial.println(value);
-   return 100.0 - map(value,30,670, 1, 100);
+   float result = 100.0 - map(value,30,670, 1, 100);
+   result = 0.01 * result;
+   Serial.print("Distance ");Serial.print(result);Serial.println("m");
+   return result;
 /*   if(value <= 90){
       return 100; // cm 
    }

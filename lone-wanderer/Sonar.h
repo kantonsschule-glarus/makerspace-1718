@@ -5,7 +5,7 @@ class Sonar {
   public:
     Sonar();
     
-    float getDistanceInCm();
+    float getDistanceInMeter();
 
   private:
     int echoPin;

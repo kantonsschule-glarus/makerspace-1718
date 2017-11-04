@@ -5,7 +5,7 @@ class Distance {
   public:
     Distance(int pin);
 
-    int getDistanceInCm();
+    float getDistanceInMeter();
     
   private:
     int _pin;

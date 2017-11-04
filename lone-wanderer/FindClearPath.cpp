@@ -20,7 +20,7 @@ float FindClearPath::calculateAngle()
   for (pos = 0; pos < 180; pos += 1) { // goes from 180 degrees to 0 degrees
     _sonarServo.write(pos);              // tell servo to go to position in variable 'pos'
     delay(15);                       // waits 15ms for the servo to reach the position
-    distances[pos] = _sonar.getDistanceInCm();    
+    distances[pos] = _sonar.getDistanceInMeter();    
   }
   for (pos = 179; pos >= 90; pos -= 1) { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree

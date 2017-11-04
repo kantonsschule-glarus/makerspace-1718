@@ -19,76 +19,24 @@ Robot::Robot(Drive &theDrive)
   goToGoal(sonar, sonarServo),
   blender(),
   disk(),
+  explore(sonar,findClearPath,drive,disk),
+  threePointTurn(theDrive),
+  wakeUp(drive,fl,fr,rl,rr),
   currentDiskLevel(Disk::CLEAR),
-  currentDistanceFromObstacleInCm(100.0)
+  currentDistanceFromObstacleInMeter(1.0)
 {;}
 
 void Robot::setUp(){
   drive.setUp();
 }
 
-void Robot::wakeUp(){ 
-  Serial.println("Robot wakeup ..."); 
-  digitalWrite(awakeIndicatorPin, HIGH);
-
-  fl.on();
-  fr.on();
-  rl.on();
-  rr.on();
-
-  drive.spinLeft();
-  delay(2000);
-  drive.stop();
-  delay(200);
-  drive.spinRight();
-  delay(2000);
-  drive.forward();
-  drive.stop();
-  Serial.println("Robot wakeup done"); 
+void Robot::doWakeUp(){ 
+  wakeUp.act(); 
 }
 
-void Robot::explore()
+void Robot::doExplore()
 {
-    float epsilon = 0.1;
-    float nominalAngle = findClearPath.calculateAngle();
-    float actualAngle = 0.0;
-    PIDController pid(); 
-    drive.stop();
-         float dcm = sonar.getDistanceInCm();
-      if(dcm > 50){
-        drive.forward();
-        drive.stop();
-        return;
-      }
-    for(int i=0; i<10; i++){
-      float error = actualAngle - nominalAngle;
-      Serial.print("Robot explore correcting angle by ");
-      Serial.print(error);
-      Serial.println("rad");
-      
-      //drive.setAngle(pid.calculateAngle(error));
-      if(abs(error) <= epsilon){
-        return;
-      }
-      drive.setAngle(0);
-      drive.setVelocity(75);
-      if(error > 0){
-        drive.spinRight();  
-      }
-      if(error < 0){
-        drive.spinLeft();  
-      }
-      delay(250);
-      drive.stop();
-      dcm = sonar.getDistanceInCm();
-      if(dcm > 50){
-        drive.forward();
-        drive.stop();
-        return;
-      }
-      nominalAngle = findClearPath.calculateAngle();
-    }
-    drive.stop();
+  explore.act();
 }
 
 void Robot::forward(){
@@ -122,8 +70,12 @@ void Robot::tick()
   act();  
 }
 void Robot::plan(){
-  currentDistanceFromObstacleInCm = distance.getDistanceInCm();
-  currentDiskLevel = disk.getLevel(currentDistanceFromObstacleInCm);
+  currentDistanceFromObstacleInMeter = distance.getDistanceInMeter();
+  currentDiskLevel = disk.getLevel(currentDistanceFromObstacleInMeter);
+  Serial.print("Robot plan currentDistanceFromObstacleInMeter=");
+  Serial.print(currentDistanceFromObstacleInMeter);
+  Serial.print("m, currentDiskLevel=");
+  Serial.println(currentDiskLevel);
 }
 
 void Robot::act()
@@ -131,16 +83,16 @@ void Robot::act()
   switch(currentDiskLevel){
     case Disk::DANGER:
     {
-      threePointTurnRight();
-      drive.stop();
-      explore();
+      threePointTurn.act();
+      explore.act();
       forward();
+      break;
     }    
     case Disk::ATTENTION:
     case Disk::CLEAR:
     default:
       float angleToGo = blender.blend(
-                            currentDistanceFromObstacleInCm, 
+                            currentDistanceFromObstacleInMeter, 
                             goToGoal.calculateAngle(), 
                             avoidObstacle.calculateAngle());
   
@@ -155,23 +107,4 @@ boolean Robot::isBumped(){
   return bfr.isPressed();
 }
 
-void Robot::threePointTurnLeft(){
-    drive.stop();
-    drive.left();
-    drive.backward();
-    delay(1000);
-    drive.spinLeft();
-    delay(600);
-    drive.forward();
-}
-
-void Robot::threePointTurnRight(){
-    drive.stop();
-    drive.right();
-    drive.backward();
-    delay(500);
-    drive.spinRight();
-    delay(400);
-    drive.forward();
-}
 

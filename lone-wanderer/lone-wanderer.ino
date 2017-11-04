@@ -22,8 +22,8 @@ void setup() {
   Serial.begin(9600);
   robot.setUp();
   
-  robot.wakeUp();
-  robot.explore();
+  robot.doWakeUp();
+  robot.doExplore();
   robot.forward();
 }
 

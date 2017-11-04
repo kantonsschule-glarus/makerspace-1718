@@ -13,6 +13,9 @@
 #include "BehaviorBlendingService.h"
 #include "Disk.h"
 #include "Sonar.h"
+#include "Explore.h"
+#include "ThreePointTurn.h"
+#include "WakeUp.h"
 
 /*
  * This is the interface of the robot
@@ -20,8 +23,8 @@
 class Robot {
   public:
     Robot(Drive &drive);
-    void wakeUp();
-    void explore();
+    void doWakeUp();
+    void doExplore();
     /**
      * tick is called in time-descreete intervals like every 25milliseconds.
      * The robot's responsibility is to take this tick to plan and act.
@@ -61,11 +64,12 @@ class Robot {
     GoToGoal goToGoal;
     BehaviorBlendingService blender;
     Disk disk;
+    Explore explore;
+    ThreePointTurn threePointTurn;
+    WakeUp wakeUp;
     Disk::LEVEL currentDiskLevel;
-    float currentDistanceFromObstacleInCm;
+    float currentDistanceFromObstacleInMeter;
     boolean isBumped();
-    void threePointTurnLeft();
-    void threePointTurnRight();
 };
 
 #endif
